@@ -13,14 +13,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Move PDF files to sheet folder
+      - name: Move PDF files to sheets folder
         run: |
-          mkdir -p sheet
-          find . -type f -name '*.pdf' -exec mv {} sheet/ \;
-      - name: Move MSCZ files to score folder
+          mkdir -p sheets
+          find . -type f -name '*.pdf' -exec mv {} sheets/ \;
+      - name: Move MSCZ files to scores folder
         run: |
-          mkdir -p score
-          find . -type f -name '*.mscz' -exec mv {} score/ \;
+          mkdir -p scores
+          find . -type f -name '*.mscz' -exec mv {} scores/ \;
       - name: Commit changes
         run: |
           git config --global user.name 'github-actions[bot]'
