@@ -8,26 +8,27 @@ on:
 jobs:
   classify_files:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Run classification script
+        run: python classify_files.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Move PDF files to sheet folder
         run: |
           mkdir -p sheet
           find . -type f -name '*.pdf' -exec mv {} sheet/ \;
-  
+
       - name: Move MSCZ files to score folder
         run: |
           mkdir -p score
           find . -type f -name '*.mscz' -exec mv {} score/ \;
-  
+
       - name: Commit changes
         run: |
           git config --global user.name 'github-actions[bot]'
